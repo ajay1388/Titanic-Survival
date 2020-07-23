@@ -5,30 +5,31 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from random import choices
 
-train_data = pd.read_csv('dataset\\train.csv')
-test_data = pd.read_csv('dataset\\test.csv')
+train_data = pd.read_csv('train.csv')
+test_data = pd.read_csv('test.csv')
 
 #Count number of NaN values in a column
-print(pd.isnull(train_data).sum())
+for col in train_data.columns:
+    print(col," ",pd.isnull(train_data[col]).sum())
 
 #Socio-Economic Class of passenger(Upper,Middle,Lower)
 sns.barplot(x='Pclass',y='Survived',data=train_data)
-plt.show()
+#plt.show()
 print(train_data['Pclass'].value_counts())
 
 #Number of parents and children of the passenger aboard
 sns.barplot(x='Parch',y='Survived',data=train_data)
-plt.show()
+#plt.show()
 print(train_data['Parch'].value_counts())
 
 #Number of siblings and spouses of the passenger aboard
 sns.barplot(x='SibSp',y='Survived',data=train_data)
-plt.show()
+#plt.show()
 print(train_data['SibSp'].value_counts())
 
 #Port Of Embarkation("C","Q","S")
 sns.barplot(x='Embarked',y='Survived',data=train_data)
-plt.show()
+#plt.show()
 print(train_data['Embarked'].value_counts())
 
 #Turn Age into category
@@ -44,7 +45,7 @@ train_data = process_age(train_data,cut_pts,label_names)
 test_data = process_age(test_data,cut_pts,label_names)
 
 sns.barplot(x="Age_Group",y="Survived",data=train_data)
-plt.show()
+#plt.show()
 
 #Cabin and Ticket are base less,and leds to false prediction,so drop both of them
 test_data.drop(['Cabin','Ticket','Name'],axis=1,inplace=True)
